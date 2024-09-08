@@ -130,16 +130,17 @@ aws emr-serverless start-job-run \
     --execution-role-arn $IAM_ROLE \
     --job-driver '{
         "sparkSubmit": {
-            "entryPoint": "s3://'BUCKET'/jobs/spark_job.py",
-            "sparkSubmitParameters": "--conf spark.archives=s3://'BUCKET'/python-packages/pyspark_venv.tar.gz#environment --conf spark.emr-serverless.driverEnv.PYSPARK_DRIVER_PYTHON=./environment/bin/python --conf spark.emr-serverless.driverEnv.PYSPARK_PYTHON=./environment/bin/python --conf spark.executorEnv.PYSPARK_PYTHON=./environment/bin/python"
+            "entryPoint": "s3://'$BUCKET'/jobs/spark_job.py",
+            "sparkSubmitParameters": "--conf spark.archives=s3://'$BUCKET'/python-packages/pyspark_venv.tar.gz#environment --conf spark.emr-serverless.driverEnv.PYSPARK_DRIVER_PYTHON=./environment/bin/python --conf spark.emr-serverless.driverEnv.PYSPARK_PYTHON=./environment/bin/python --conf spark.executorEnv.PYSPARK_PYTHON=./environment/bin/python"
         }
     }' \
     --configuration-overrides '{
         "monitoringConfiguration": {
             "s3MonitoringConfiguration": {
-                "logUri": "s3://'BUCKET'/logs/"
+                "logUri": "s3://'$BUCKET'/logs/"
             }
         }
     }'
+
 
 ```
